@@ -1,7 +1,7 @@
 import express from "express";
 import User from "../../models/user";
 
-const forgotPsasword = async (req, res) => {
+const forgotPassword = async (req, res) => {
   const { email } = req.body;
   const user = await User.find({ email });
   if (user == null) {
