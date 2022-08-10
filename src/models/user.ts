@@ -13,27 +13,25 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Password is required"],
-    }
-    // {
-    //     "meta": {
-    //         "data_status": "AVAILABLE",  // AVAILABLE, PROCESSING, FAILED
-    //         "auth_method": "mobile_banking" // internet_banking
-    //     },
-    //     "account": {
-    //         "_id": "5feec8ce95e8dc6a52e53257",
-    //         "institution": {
-    //             "name": "GTBank",
-    //             "bankCode": "058",
-    //             "type": "PERSONAL_BANKING" // or BUSINESS_BANKING
-    //         },
-    //         "name": "HASSAN ABDULHAMID TOMIWA",
-    //         "accountNumber": "0131863463",
-    //         "type": "SAVINGS ACCOUNT",
-    //         "balance": 538786,
-    //         "currency": "NGN",
-    //         "bvn": "1595"
-    //     }
-    // }
+    },
+    type:{
+        type: String,
+        required: [true, "account type is required"],
+    },
+    // "balance": 538786,
+    balance: {
+        type: Number,
+        default: 0,
+    },
+    currency: {
+        type: String,
+        default: "NGN",
+    },
+    createdAt: {
+        type: Date,
+        default: () => Date.now(),
+      },
+
 //     Field	description	type
 // meta	A meta object containing the current data status and the auth method	object
 // meta.data_status	The status of the returned connected data, if it is AVAILABLE, PROCESSING, FAILED	string

@@ -1,9 +1,9 @@
 import express from "express";
 import User from "../../models/user";
 const app = express();
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 
-let login = async (req, res) => {
+const login = async (req, res) => {
   const user = await User.find({ email: req.body.email });
 
   if (user == null) {

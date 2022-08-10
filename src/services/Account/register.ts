@@ -6,7 +6,7 @@ import handleJwt from "../../utils/handleJwt";
 let register = async (req, res) => {
   const schema = Joi.object({
     name: Joi.string().required(),
-    phone: Joi.string().email().required(),
+    phone: Joi.string().required(),
     password: Joi.string().required(),
   });
 
@@ -22,7 +22,7 @@ let register = async (req, res) => {
     const encryptedUser = { ...req.body, password: hashedPassword };
     const newUser = new User(encryptedUser);
     await newUser.save();
-    res.status(201).send({ status: "Successs User Created", token: token });
+    res.status(201).send({ status: "Successs User Created", token: "token" });
   } catch (error) {
     res.status(500).send(error.message);
   }

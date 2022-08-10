@@ -2,7 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import {config} from 'dotenv';
 import mongoose from 'mongoose';
-const port = 3000;
+import { graphqlHTTP } from "express-graphql"
+import root from './graphql/resolvers/index';
+import schema from './graphql/schema/index';
+const port = 8000;
 
 
 const app = express();
@@ -18,6 +21,14 @@ app.use(cors());
 app.use(express.json());
 
 config();
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: schema,
+    rootValue: root,
+    graphiql: true,
+  })
+);
 mongoose.connect(process.env.MONGO_URI);
 
 const db = mongoose.connection;
