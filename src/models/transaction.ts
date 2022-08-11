@@ -1,45 +1,56 @@
 import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const TransactionSchema = new mongoose.Schema({
-
-  accountNumber: {
-
+  phone: {
     type: String,
-    required: [true, "Account number is required"]}
-    ,
-    accountType: {
-        type: String,
-        required: [true, "Account type is required"],
-        // type: 'SAVINGS_ACCOUNT',
-    }
-        ,
-    amount: {
-        type: Number,
-        required: [true, "Amount is required"],
-    }
-    ,currency:{
-        type: String,
-    },channel:{
-        type:String,
-        required: [true, "Channel is required Channel from which the transaction was done such as ATM, POS, Mobile, USSD"],
-    },narration:{
-        type:String,
-        required: [true, "A description of the transaction"],
+    required: [true, "Account number is required"],
+  },
+  accountType: {
+    type: String,
+    required: [true, "Account type is required"],
+    // type: 'SAVINGS_ACCOUNT',
+  },
+  amount: {
+    type: Number,
+    required: [true, "Amount is required"],
+  },
+  currency: {
+    type: String,
+    default: "NGN",
+  },
+  channel: {
+    type: String,
+    required: [
+      true,
+      "Channel is required Channel from which the transaction was done such as ATM, POS, Mobile, USSD",
+    ],
+  },
+  narration: {
+    type: String,
+    required: [true, "A description of the transaction"],
+  },
+  transactionTime: {
+    type: Date,
+    default: () => Date.now(),
+  },
+  transactionType: {
+    type: String,
+    required: [true, "Transaction type is required"],
+  },
+  balanceAfter: {
+    type: Number,
+  },
+  createdAt: {
+    type: Date,
+    default: () => Date.now(),
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+});
 
-    },transactionTime:{
-        type:Date,
-        required: [true, "Transaction time is required"],
-    },transactionType:{
-        type:String,
-        required: [true, "Transaction type is required"],
-    },
-    valueDate:{
-        type:Date,required: [true, "Required The value date for transaction on the system in the format DDMMYYYY"],
-    },balanceAfter:{
-        type: Number
-    }
-    });
-    
 // accountNumber	string	Required The customer’s bank account number `
 // amount	number	Required Transaction amount
 // currency	string	Required A 3 character code that represents the currency

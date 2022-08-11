@@ -37,10 +37,8 @@ type Query {
 }
 
 type Mutation {
-        createTransaction(phone: String!, amount: Int!, narration: String!, channel:String!,accountType: String!, transactionType: String!,): Transaction!
-
-            createUser(name: String!, phone: String!, email:String! password: String!, type: String!,): UserResponse!}
-    
+    createUser(name: String!, phone: String!, email:String! password: String!, type: String!,): UserResponse!}
+    createTransaction(phone: String!, amount: Int!, narration: String!, accountType: String!, transactionType: String!,): Transaction!}
     schema {
         query: Query
         mutation: Mutation
