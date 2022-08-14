@@ -9,6 +9,7 @@ export const createUser = async (args: {
   type: string;
   email: string;
 }) => {
+  console.log(args);
   const schema = Joi.object({
     name: Joi.string().required(),
     phone: Joi.string().required(),
@@ -21,11 +22,11 @@ export const createUser = async (args: {
     throw new Error(error.details[0].message);
   }
   try {
-    const { password,phone } = args;
-    const user = await User.findOne({ phone: phone });
-    console.log(user)
-    if (user) {
-        throw new Error("User already exists");
+    const { password, phone } = args;
+    const dbUser = await User.findOne({ phone: phone });
+    console.log(dbUser, "dbuser");
+    if (dbUser) {
+      throw new Error("User already exists");
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const encryptedUser = { ...args, password: hashedPassword };
@@ -34,9 +35,42 @@ export const createUser = async (args: {
     const token = jwt.sign(
       { phone: result.phone, password: result.password },
       process.env.REACT_APP_JWT_SECRET
-    )
-    return {user:result,token}
+    );
+    return { user: result, token };
   } catch (error) {
     throw new Error(error.message);
   }
+  // return {
+  //   user: {
+  //     ...args,
+  //     balance: 0,
+  //     currency: "",
+  //     createdAt: "",
+  //   },
+  //   token: "r",
+  // };
 };
+//   {
+
+// console.log(args)
+
+//   try {
+//     const { password,phone } = args;
+//     const dbUser = await User.findOne({ phone: phone });
+//     console.log(dbUser ,"dbuser")
+//     if (dbUser) {
+//         throw new Error("User already exists");
+//     }
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const encryptedUser = { ...args, password: hashedPassword };
+//     const newUser = new User(encryptedUser);
+//     const result = await newUser.save();
+//     const token = jwt.sign(
+//       { phone: result.phone, password: result.password },
+//       process.env.REACT_APP_JWT_SECRET
+//     )
+//     return {user:result,token}
+//   } catch (error) {
+//     throw new Error(error.message);
+//   }
+// };

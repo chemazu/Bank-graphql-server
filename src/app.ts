@@ -1,24 +1,23 @@
-import express from 'express';
-import cors from 'cors';
-import {config} from 'dotenv';
-import mongoose from 'mongoose';
-import { graphqlHTTP } from "express-graphql"
-import root from './graphql/resolvers/index';
-import schema from './graphql/schema/index';
-const port = 8000;
+import express from "express";
+import cors from "cors";
+import { config } from "dotenv";
+import mongoose from "mongoose";
+import { graphqlHTTP } from "express-graphql";
+import root from "./graphql/resolvers/index";
+import schema from "./graphql/schema/index";
 
+const port = 8000;
 
 const app = express();
 
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
-
-
 
 app.use(cors());
 app.use(express.json());
+
+
 
 config();
 app.use(

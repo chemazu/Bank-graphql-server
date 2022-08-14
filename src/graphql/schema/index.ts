@@ -14,7 +14,11 @@ type User {
 }
 
 type UserResponse {
-    user: User
+    user: User!
+    token: String
+}
+type LoginResponse {
+    user: User!
     token: String
 }
 type Transaction {
@@ -33,13 +37,14 @@ type Transaction {
 
 type Query {
     users: [User!]!
-    login(phone: String!, password: String!): String!
 }
 
 type Mutation {
-        createTransaction(phone: String!, amount: Int!, narration: String!, channel:String!,accountType: String!, transactionType: String!,): Transaction!
+    createTransaction(phone: String!, amount: Int!, narration: String!, channel:String!,accountType: String!, transactionType: String!,): Transaction!
+    createUser(name: String!, phone: String!, email:String! password: String!, type: String!,): UserResponse
+    login(phone: String!, password: String!): LoginResponse
+}
 
-            createUser(name: String!, phone: String!, email:String! password: String!, type: String!,): UserResponse!}
     
     schema {
         query: Query
